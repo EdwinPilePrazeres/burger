@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/index.css","webpack://src/components/Layout/Layout.module.css"],"names":[],"mappings":"AAAA,KACE,QAAS,CACT,SAAS,CACT,kCACF,CCJA,uBACI,eACJ","file":"main.ebef69b1.chunk.css","sourcesContent":["body {\n  margin: 0;\n  padding:0;\n  font-family: 'Open Sans', sans-serif;\n}\n\n",".Content {\r\n    margin-top: 16px;\r\n}"]}
