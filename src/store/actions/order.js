@@ -1,4 +1,4 @@
-import * as actionTyes from './actionTypes';
+import * as actionTypes from './actionTypes';
 import axios from '../../axios-orders';
 
 export const purchaseBurgerSuccess = (id, orderData) => {
@@ -16,12 +16,13 @@ export const purchaseBurgerFail = (error) => {
     };
 };
 
-export const purchaseBurgerStart = (orderData) => {
+export const purchaseBurger = (orderData) => {
     return dispatch => {
+        dispatch(purchaseBurgerStart());
         axios.post( '/orders.json', orderData )
         .then( response => {
             console.log(response.data)
-            dispatch(purchaseBurgerSuccess(response.data, orderData))
+            dispatch(purchaseBurgerSuccess(response.data.name, orderData))
             // this.setState( { loading: false } );
             // this.props.history.push('/');
         } )
@@ -31,3 +32,15 @@ export const purchaseBurgerStart = (orderData) => {
         } );
     };
 };
+
+export const purchaseBurgerStart = () => {
+    return {
+        type: actionTypes.PURCHASE_BURGER_START
+    };
+};
+
+export const purchaseInit = () => {
+    return {
+        type: actionTypes.PURCHASE_INIT
+    }
+}

@@ -95,12 +95,12 @@ class ContactData extends Component {
         },
         formIsValid: false,
         
-        loading: false
+        // loading: false
     }
 
     orderHandler = ( event ) => {
         event.preventDefault();
-        this.setState( { loading: true } );
+        
         const formData = {};
         for (let formElementIdentifier  in this.state.orderForm) {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
@@ -130,6 +130,14 @@ class ContactData extends Component {
         if (rules.minLength) {
             isValid = value.length <= rules.maxLength && isValid;
         }
+        // if (rules.isEmail) {
+        //     const pattern = 
+        //     isValid = pattern.test(value) && isValid
+        // }
+        // if (rules.isNumeric) {
+        //     const pattern = /^\d+$/;
+        //     isValid = pattern.test(value) && isValid
+        // }
 
         return isValid;
     }
@@ -192,13 +200,17 @@ class ContactData extends Component {
 
 const mapStateToProps = state => {
     return {
-        ings: state.ingredients,
-        price: state.totalPrice
+        ings: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading
     }
 }
 
 const mapDispatchToProps = dispatch => {
-    onOrderBurger: (orderData) => dispatch(actions.purchaseBurgerStart(orderData))
+    return {
+        onOrderBurger: (orderData) => dispatch(actions.purchaseBurger(orderData))
+    }
+
 }
 
-export default connect(mapStateToProps)(withErrorhandler(ContactData, axios));
+export default connect(mapStateToProps,mapDispatchToProps)(withErrorhandler(ContactData, axios));
