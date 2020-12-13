@@ -1,13 +1,13 @@
-import { delay } from "redux-saga";
-import { put } from "redux-saga/effects";
+import { delay } from "redux-saga/effects";
+import { put, call } from "redux-saga/effects";
 import axios from "axios";
 
 import * as actions from "../actions/index";
 
 export function* logoutSaga(action) {
-  yield localStorage.removeItem("token");
-  yield localStorage.removeItem("expirationDate");
-  yield localStorage.removeItem("userId");
+  yield call([localStorage, "removeItem"], "token");
+  yield call([localStorage, "removeItem"], "expirationDate");
+  yield call([localStorage, "removeItem"], "userId");
   yield put(actions.logoutSucceed());
 }
 
@@ -24,10 +24,10 @@ export function* authUserSaga(action) {
     returnSecureToken: true
   };
   let url =
-    "https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY";
+  'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCiqGC1LYFbZOD55Anyig7Hv_bVM7mRifI';
   if (!action.isSignup) {
     url =
-      "https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyB5cHT6x62tTe-g27vBDIqWcwQWBSj3uiY";
+    'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCiqGC1LYFbZOD55Anyig7Hv_bVM7mRifI';
   }
   try {
     const response = yield axios.post(url, authData);
